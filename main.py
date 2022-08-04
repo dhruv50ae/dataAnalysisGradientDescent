@@ -176,4 +176,3 @@ plt.grid()
 plt.plot(x3, dh(x3))
 
 plt.show()
-
