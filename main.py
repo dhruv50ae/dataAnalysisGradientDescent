@@ -122,13 +122,13 @@ plt.show()
 
 # Python loop and Gradient descent:
 
-def gradientDescent(derivativeFunc, initialGuess, multiplier=0.02, precision=0.0001):
+def gradientDescent(derivativeFunc, initialGuess, multiplier=0.02, precision=0.0001, max=300):
     newX = initialGuess
 
     xList = [newX]
     slopeList = [derivativeFunc(newX)]
 
-    for n in range(500):
+    for n in range(max):
         previousX = newX
         gradient = derivativeFunc(previousX)
         newX = previousX - multiplier * gradient
@@ -146,3 +146,34 @@ localMin, listX, derivList = gradientDescent(dg, -0.1)
 
 print(localMin)
 print(len(listX))
+
+# Divergence, overflow and tuples
+
+# Make data
+
+x3 = np.linspace(start=-2.5, stop=2.5, num=1000)
+
+
+def h(x):
+    return x ** 5 - 2 * x ** 4 + 2
+
+
+def dh(x):
+    return 5 * x ** 4 - 8 * x ** 3
+
+
+localMin, listX, derivList = gradientDescent(dh, 0.2)
+
+print(localMin)
+print(len(listX))
+
+plt.subplot(1, 2, 1)
+plt.grid()
+plt.plot(x3, h(x3))
+
+plt.subplot(1, 2, 2)
+plt.grid()
+plt.plot(x3, dh(x3))
+
+plt.show()
+
