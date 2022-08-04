@@ -41,10 +41,6 @@ for n in range(500):
     if stepSize < precision:
         break
 
-print(f"Local Minimum at: {newX}")
-print(f"Slope at this point is {df(newX)}")
-print(f"Cost at this point is {f(newX)}")
-
 # Plot function and derivative side by side
 
 plt.figure(figsize=[10, 5])
@@ -75,3 +71,78 @@ plt.plot(x1, df(x1))
 plt.scatter(xList, slopeList, color="red", alpha=0.5)
 
 plt.show()
+
+# Multiple minima vs Initial guess and advanced functions
+
+# Make some data
+
+x2 = np.linspace(-2, 2, 1000)
+
+
+# g(x) function
+
+def g(x):
+    return x ** 4 - 4 * x ** 2 + 5
+
+
+# dg(x) function
+
+def dg(x):
+    return 4 * x ** 3 - 8 * x
+
+
+# Plot function and derivative side by side
+
+plt.figure(figsize=[10, 5])
+
+# First Chart for g(x)
+
+plt.subplot(1, 2, 1)
+plt.grid()
+plt.xlim([-2, 2])
+plt.ylim([0, 6])
+plt.title("Cost Function g(x)")
+plt.xlabel("X")
+plt.ylabel("Cost")
+plt.plot(x2, g(x2))
+
+# Second chart for dg(x)
+
+plt.subplot(1, 2, 2)
+plt.grid()
+plt.title("Derivative cost function dg(x)")
+plt.xlabel("X")
+plt.ylabel("Gradient")
+plt.xlim(-2, 2)
+plt.ylim(-20, 20)
+plt.plot(x2, dg(x2))
+
+plt.show()
+
+
+# Python loop and Gradient descent:
+
+def gradientDescent(derivativeFunc, initialGuess, multiplier=0.02, precision=0.0001):
+    newX = initialGuess
+
+    xList = [newX]
+    slopeList = [derivativeFunc(newX)]
+
+    for n in range(500):
+        previousX = newX
+        gradient = derivativeFunc(previousX)
+        newX = previousX - multiplier * gradient
+        stepSize = abs(newX - previousX)
+        xList.append(newX)
+        slopeList.append(derivativeFunc(newX))
+
+        if stepSize < precision:
+            break
+
+    return newX, xList, slopeList
+
+
+localMin, listX, derivList = gradientDescent(dg, -0.1)
+
+print(localMin)
+print(len(listX))
