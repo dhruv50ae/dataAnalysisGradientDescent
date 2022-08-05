@@ -19,5 +19,3 @@ y4 = np.linspace(start=-2, stop=2, num=200)
 
 # Generating 3D plot
 
-fig = plt.figure(figsize=[16, 12])
-ax = fig.gca(projection="3d")
